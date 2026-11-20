@@ -1,0 +1,24 @@
+[package]
+name = "aegires-cli"
+version = "0.2.0"
+edition = "2021"
+description = "Cross-platform Rust CLI for Aegires-gen3 (dcenc2) text, media, and Discord E2EE"
+
+[dependencies]
+aes-gcm = "0.10.3"
+argon2 = "0.5"
+base64 = "0.22"
+hkdf = "0.12"
+rand = "0.8"
+rpassword = "7"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+unicode-normalization = "0.1"
+ureq = { version = "3", features = ["json"] }
+zeroize = { version = "1.8", features = ["derive"] }
+
+[profile.release]
+opt-level = 3
+lto = true
+strip = true
