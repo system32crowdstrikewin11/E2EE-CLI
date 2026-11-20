@@ -674,7 +674,7 @@
 
         <div class="tabs" role="tablist">
           <button class="tab-btn active" data-tab="termux">Termux (Android)</button>
-          <button class="tab-btn" data-tab="unix">Linux &amp; macOS</button>
+          <button class="tab-btn" data-tab="linux">Linux &amp; macOS</button>
           <button class="tab-btn" data-tab="windows">Windows (PowerShell)</button>
         </div>
 
@@ -693,14 +693,15 @@ cp target/release/aegires-cli "$PREFIX/bin/aegires-cli"</code></pre>
           </div>
         </div>
 
-        <div class="tab-panel" id="tab-unix">
+        <div class="tab-panel" id="tab-linux">
           <div class="code-wrap">
             <div class="code-head">
               <span>Linux / macOS</span>
               <button class="copy-btn">Copy</button>
             </div>
             <pre><code># Ensure Rust is installed: https://rustup.rs
-cd aegires-cli
+git clone https://github.com/system32crowdstrikewin11/E2EE-CLI.git
+cd E2EE-CLI
 cargo build --release
 sudo cp target/release/aegires-cli /usr/local/bin/aegires-cli</code></pre>
           </div>
@@ -712,8 +713,9 @@ sudo cp target/release/aegires-cli /usr/local/bin/aegires-cli</code></pre>
               <span>Windows PowerShell</span>
               <button class="copy-btn">Copy</button>
             </div>
-            <pre><code># Ensure Rust is installed: https://rustup.rs
-cd aegires-cli
+            <pre><code># Ensure Rust is installed: https://rustup.rs (add `~\.cargo\bin` to your PATH)
+git clone https://github.com/system32crowdstrikewin11/E2EE-CLI.git
+cd E2EE-CLI
 cargo build --release
 .\target\release\aegires-cli.exe --help</code></pre>
           </div>
