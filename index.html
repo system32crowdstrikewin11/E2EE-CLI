@@ -687,7 +687,8 @@
             <pre><code>pkg update &amp;&amp; pkg install -y rust git
 termux-setup-storage
 
-cd ~/aegires-cli
+git clone https://github.com/system32crowdstrikewin11/E2EE-CLI.git
+cd aegires-cli
 cargo build --release
 cp target/release/aegires-cli "$PREFIX/bin/aegires-cli"</code></pre>
           </div>
@@ -783,6 +784,97 @@ exit</code></pre>
         <div class="callout good">
           <strong>Termux Pasting Tip</strong>
           Long-press anywhere on the Termux terminal and tap <strong>Paste</strong> at the hidden passphrase or token prompt, then press <strong>Enter</strong>. The line stays blank by design even after pasting.
+        </div>
+
+        <h3>One-Shot &amp; Session-Based Usage (Termux / Linux / macOS / Windows)</h3>
+        <p>
+          Besides typing a passphrase interactively each run, you can unlock once for this terminal session and then
+          repeat <strong>instant one-shot commands</strong> without being prompted again. The tool exports its derived
+          session key as a shell variable you apply with <code>eval</code> (<code>aegires-cli unlock</code> prints the
+          export line; add <code>--login</code> if you also want Discord auto-author lookup and auto-decrypt wired up).
+          With the session unlocked, commands like <code>aegires-cli e &quot;...&quot;</code> and
+          <code>aegires-cli d &quot;§...&quot;</code> run silently and fast.
+        </p>
+
+        <div class="tabs" role="tablist">
+          <button class="tab-btn active" data-tab="session-termux">Termux (Android)</button>
+          <button class="tab-btn" data-tab="session-linux">Linux &amp; macOS</button>
+          <button class="tab-btn" data-tab="session-windows">Windows (PowerShell)</button>
+        </div>
+
+        <div class="tab-panel active" id="tab-session-termux">
+          <div class="code-wrap">
+            <div class="code-head">
+              <span>Termux (Android) — session-based one-shots</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code># 1. Unlock once for this terminal session:
+eval "$(aegires-cli unlock -c 123456789012345678 -s 987654321098765432)"
+
+# 2. Repeat instant one-shot commands as much as you want:
+aegires-cli e "Meet at 8 PM"
+aegires-cli d §Ir2c9ROKFhw0...
+aegires-cli d Ir2c9ROKFhw0...
+aegires-cli d -s 111222333444555666 §IrG4iQyY...
+
+# Pipes work cleanly too (Termux clipboard example):
+aegires-cli e "secret" | termux-clipboard-set
+termux-clipboard-get | aegires-cli d
+
+# 3. Switch keys mid-session anytime:
+eval "$(aegires-cli unlock)"
+
+# 4. Wipe session variables when done (or just close the terminal):
+eval "$(aegires-cli lock)"</code></pre>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-session-linux">
+          <div class="code-wrap">
+            <div class="code-head">
+              <span>Linux / macOS — session-based one-shots</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code># 1. Unlock once for this terminal session:
+eval "$(aegires-cli unlock -c 123456789012345678 -s 987654321098765432)"
+
+# 2. Repeat instant one-shot commands as much as you want:
+aegires-cli e "Meet at 8 PM"
+aegires-cli d §Ir2c9ROKFhw0...
+aegires-cli d -s 111222333444555666 §IrG4iQyY...
+
+# Pipes work cleanly too:
+aegires-cli e "secret" | xclip -selection clipboard
+xclip -selection clipboard -o | aegires-cli d
+# on macOS use: aegires-cli e "secret" | pbcopy
+
+# 3. Switch keys mid-session anytime:
+eval "$(aegires-cli unlock)"
+
+# 4. Wipe session variables when done (or just close the terminal):
+eval "$(aegires-cli lock)"</code></pre>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-session-windows">
+          <div class="code-wrap">
+            <div class="code-head">
+              <span>Windows PowerShell — session-based one-shots</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code># 1. Unlock once for this terminal session (PowerShell auto-detects, or force with --ps):
+aegires-cli unlock -c 123456789012345678 -s 987654321098765432 | Invoke-Expression
+
+# 2. Repeat instant one-shot commands as much as you want:
+aegires-cli d §Ir2c9ROKFhw0...
+aegires-cli d -s 111222333444555666 §IrG4iQyY...
+
+# 3. Switch keys mid-session anytime:
+aegires-cli unlock | Invoke-Expression
+
+# 4. Wipe session variables when done (or just close the terminal):
+aegires-cli lock | Invoke-Expression</code></pre>
+          </div>
         </div>
       </section>
 
