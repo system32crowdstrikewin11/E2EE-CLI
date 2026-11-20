@@ -1166,7 +1166,9 @@ df -s 111222333444555666 "/sdcard/Download/video.mp4.aeg"</code></pre>
     // Active section highlight on scroll
     const navLinks = Array.from(document.querySelectorAll(".nav-link"));
     const sections = navLinks
-      .map(link => document.querySelector(link.getAttribute("href")))
+      .map(link => link.getAttribute("href"))
+      .filter(href => href.startsWith("#"))
+      .map(href => document.querySelector(href))
       .filter(Boolean);
 
     const observer = new IntersectionObserver(
